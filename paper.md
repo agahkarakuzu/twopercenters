@@ -1,195 +1,65 @@
----
-numbering:
-  heading_2: false
-  figure:
-    template: Fig. %s
----
+# Introduction
 
-## Articles with code vs articles from code
+To date, citations to scholarly articles have served as the primary currency for attributing credibility to their authors. From the academic job market to research funding decisions, citation counts and related metrics remain central indicators shaping outcomes. Google Scholar, a citation-based search engine, has become the dominant gateway to explore articles, author profiles and evaluative bibliography, largely because it is free and user-friendly [](https://doi.org/10.2139/ssrn.2921021).
 
-One of the main advantages of articles written in MyST Markdown is the fact that you can bundle several types of outputs (such as figures, tables, equations, etc.) from your Jupyter Notebooks in a single document. This is made possible by the use of `directives`, which are special commands that instruct MyST Markdown to include the content of a notebook, a file, or a chunk of text in your document or cite references. You can use DOIs, [](https://doi.org/10.31219/osf.io/h89js) or a local bibliography file (`paper.bib`) for citations @Boudreau2023.
+However, its influence is not without problems. Unlike curated databases such as Web of Science or Scopus, Google Scholar operates with minimal quality control as it relies on [web scraping](https://en.wikipedia.org/wiki/Web_scraping). It automatically indexes a broad range of sources, including non-peer-reviewed manuscripts, conference abstracts, institutional repositories, and even duplicated or erroneous records. The same mechanism makes the platform vulnerable to manipulation, as recently demonstrated in a striking case where a fabricated researcher amassed 380 citations and an h-index of 19 after uploading just 20 ChatGPT-generated articles across three preprint servers (https://doi.org/10.1038/s41598-025-88709-7). Another well-known example is Larry the Cat [](10.1126/science.zl99qni
+) who famously dethroned [Felis Domesticus Chester Willard](https://www.science.org/content/article/cat-co-authored-influential-physics-paper) to become the world's most cited cat by using a citation-boosting service advertised on Facebook.
 
+Nevertheless, in today’s digital environment, Google Scholar confronts a challenge far more consequential than the whimsical phenomenon of feline citation races: the growing reliance on AI-driven tools for scholarly search [](https://doi.org/10.1090/noti2838). A recent [blog post](https://hannahshelley.neocities.org/blog/2025_08_13_GoogleScholar) by Hannah Shelly powerfully captures how Scholar service is nearing the [Google Graveyard](https://killedbygoogle.com) for this exact reason and highlights the levels of unpreparedness by the academic community:
 
-:::{figure} static/banner.jpg
+> "academia has built critical infrastructure around a free commercial service with zero guarantees."
 
-A funny take on the difference between articles with code and articles from code.
-:::
+The coming years will show whether Google Scholar follows the fate of Microsoft Academic. More critically, the task ahead is to establish trustworthy platforms that engage the scholarly community through a robust bibliometric database, especially as literature search and discovery increasingly migrate to AI systems. One of the most notable efforts in this direction is the science-wide author databases of standardized citation indicators [](https://doi.org/10.1371/journal.pbio.3000384).
 
-Let's see how directives work with a simple example by rendering a video from an external source:
+First released in 2019, this dataset encompasses the 100,000 most cited authors across 22 scientific disciplines and 174 subfields, as indexed by Scopus. It provides rankings for both a given year and across an author’s entire career. The primary ranking metric is a composite citation indicator (c-score), which integrates multiple citation-based measures to provide a more balanced assessment of research impact rather than bare citation counts or h-index. As of today, seven versions of this dataset are available in tabular format for anyone to explore freely, as well as the source code to replicate the calculation of the metrics on Databricks using PySpark.
 
-:::{iframe} https://cdn.curvenote.com/0191bd75-1494-72f5-b48a-a0aaad296e4c/public/links-8237f1bb937ea247c2875ad14e560512.mp4
-:label: figvid
-:width: 100%
+{button}`Elsevier Data Repository<https://elsevier.digitalcommonsdata.com/datasets/btchxktzyw/7>`
 
-Video reused from [mystmd.org](https://mystmd.org) (CC-BY-4.0, [source](https://mystmd.org/guide)).
-:::
 
-Yet, the main purpose of this article is to not to showcase all the [authoring tools](https://mystmd.org/guide/typography) available in MyST Markdown, but rather to provide a simple template to get you started with your own article to publish on NeuroLibre.
+# Methods
 
+## Data Processing and Indexing Pipeline
 
-:::{seealso}
-You can refer to the [MyST Guide](https://mystmd.org/guide/typography) to see all the cool stuff you can do with MyST Markdown, such as creating a `mermaid` diagram like this:
+The dashboard infrastructure was built upon a comprehensive data processing pipeline that transforms the standardized citation indicators dataset into an interactive visualization platform. The implementation consists of three primary components: data preprocessing, Elasticsearch indexing, and web-based dashboard development.
 
-```{mermaid}
-flowchart LR
-  A[Jupyter Notebook] --> C
-  B[MyST Markdown] --> C
-  C(mystmd) --> D{AST}
-  D <--> E[LaTeX]
-  E --> F[PDF]
-  D --> G[Word]
-  D --> H[React]
-  D --> I[HTML]
-  D <--> J[JATS]
-```
+### Data Preprocessing and Aggregation
 
-Or you can see how hover-over links work for [wikipedia sources](https://en.wikipedia.org/wiki/Wikipedia#:~:text=Wikipedia%20is%20a%20free%20content,and%20the%20wiki%20software%20MediaWiki.) and cross references figures (e.g., [Fig. %sf](#fig1), [Figure %sf](#fig2), [Video %sf](#figvid)).
-:::
+Raw data from the science-wide author databases underwent systematic preprocessing to prepare multiple analytical perspectives. The pipeline generated composite datasets organized by individual researchers (career-long and single-year metrics) and aggregate views grouped by country, scientific field, and institutional affiliation. Data compression and encoding techniques were implemented to optimize storage and retrieval performance within the search infrastructure.
 
-Typically, when publishing an article following the traditional route, you would write your article in a word processor where you need to deal with the generation of figures, tables etc. elsewhere, and then bring them together in the final document manually. This eventually leads to a cluttered set of files, code, dependencies, and even data that are hard to manage in the long run. If you've been publishing articles for a while, you probably know what we are talking about:
+### Elasticsearch Integration
 
-> Where is the endnote reference folder I used for this article?
+The processed datasets were indexed using Elasticsearch, a distributed search and analytics engine, to enable rapid querying and filtering capabilities essential for interactive visualization. Two primary indexing functions were developed to handle different data structures:
 
-> What is the name of the script I used to generate the second figure? This script has the title `fig_2_working.py` and is in the  `karakuzu_et_al_2016_mrm` folder, but it does not seem to be the one that generated the figure...
+The main indexing function creates document mappings for individual researcher profiles, storing author names, country affiliations, institutional names, scientific fields, temporal coverage, and compressed data objects. Search metadata including country, institution, and field classifications are extracted from the most recent year of available data to ensure current relevance.
 
-> I cannot create the same runtime environment that I used for this analysis in my current project because `python 3.8` is not available in the current distribution of Anaconda... It is so tricky to get this running on my new computer...
+A specialized aggregation indexing function handles country, field, and institutional summary statistics, creating streamlined indices optimized for aggregate-level queries and visualizations.
 
-MyST Markdown offers a powerful solution to this by allowing you to create an article ✨from code✨, linking all the pieces of your executable and narrative content together in the body of this one document: your canvas.
+The indexing process utilizes parallel bulk operations to efficiently process large datasets while maintaining data integrity through error handling and index refresh operations. Document compression using base64 encoding minimizes storage requirements while preserving complete dataset accessibility.
 
-:::{figure} https://cdn.curvenote.com/0191bd75-1494-72f5-b48a-a0aaad296e4c/public/reuse-jupyter-output-2e6bfa91772dbb6bbc022dc6aee80d2b.webp
-:label: fig0
+### Dashboard Architecture
 
-An article with two figures created in Jupyter Notebooks. Each figure can be labeled directly in the notebook and reused in any other page directly.
+The interactive dashboard was developed using Plotly Dash, a Python web application framework optimized for analytical visualizations. To that effect, the architecture employed a page-based routing system where each analytical component was implemented as a separate module, facilitating navigation between different analytical perspectives
 
-Figure reused from [mystmd.org](https://mystmd.org) (CC-BY-4.0, [source](https://mystmd.org/guide/reuse-jupyter-outputs#reuse-jupyter-outputs)).
-:::
+The primary landing page provided a comprehensive overview interface featuring an interactive world map visualization built with Plotly Express. This interface allowed users to explore global distributions of citation metrics with dynamic filtering capabilities. Users could switch between career-long and single-year datasets, select different years (2017-2021), and examine various summary statistics (minimum, maximum, median, 25th and 75th percentiles).
 
+Interactive callback functions handled real-time user interactions, including map clicks that triggered detailed country-specific views displaying institutional and researcher breakdowns. The interface integrated collapsible accordion sections containing specialized comparison tools for different analytical perspectives:
 
+- **Author search functionality**: Implemented through dedicated search interfaces with autocomplete capabilities
+- **Author vs. author comparisons**: Side-by-side metric comparisons with interactive visualizations
+- **Author vs. group comparisons**: Individual researcher performance against aggregate statistics
+- **Group vs. group comparisons**: Comparative analysis between countries, institutions, or fields
+- **Temporal trend analysis**: Individual researcher metric evolution over time
 
-For example, the following figure is the output of the `content/fig_1.ipynb` notebook:
+The dashboard connected directly to the Elasticsearch cluster through authenticated connections, retrieving and processing data in real-time. Custom utility functions handled Elasticsearch queries, data decompression, and result formatting. The application employed efficient pagination and scrolling mechanisms for large result sets, ensuring responsive performance even with extensive datasets.
 
-:::{figure} #fig1cell
-:label: fig1
+Visual styling was implemented using a dark theme with custom color palettes and responsive design components, such as loading spinners to enhance user experience during data retrieval operations.
 
-An example of a figure generated from a Jupyter Notebook that lives in the `content` folder of this repository. Check `content/figure_1.ipynb` to see how this figure was generated and where the label `#fig1cell` is defined.
-:::
+### Deployment Infrastructure
 
-Here is another figure generated from another notebook:
+Both the Elasticsearch instance and dashboard application were deployed on NeuroLibre's Dokku platform, providing scalable hosting with automated deployment capabilities. The Elasticsearch cluster was configured with appropriate security measures and access controls, while the dashboard application interfaced with the search backend through authenticated connections.
 
-:::{figure} #fig2cell
-:label: fig2
+Environment-specific configurations enabled deployment flexibility, with support for both local development and production environments. The implementation included proper error handling, logging, and monitoring capabilities to ensure reliable operation in production settings.
 
-An example of a figure generated from a Jupyter Notebook that lives in the `content` folder of this repository.  Check `content/figure_2.md` to see how this figure was generated and where the label `#fig2cell` is defined.
-:::
+All source code, configuration files, and deployment scripts were made freely available through the project repository at https://github.com/Notebook-Factory/twopercenters/tree/main, enabling reproducibility and community contributions to the platform.
 
-Both interactive, cool right! All your assets are centralized in this one document, which ideally lives in a GitHub repository. You may forget what you did, but your commit history will be there to remind you.
-
-## NeuroLibre and MyST Markdown
-
-NeuroLibre is a reproducible preprint publisher that makes it a seamless experience to publish preprints written in MyST Markdown, and commits to the long term preservation of the content, runtime, data, and the functionality of the code.
-
-:::{seealso}
-You can refer to [this blogpost](https://conp.ca/about-neurolibre/#:~:text=NeuroLibre%20is%20a%20platform%20for,articles%2C%20tutorials%2C%20and%20reports) for more information about NeuroLibre.
-:::
-
-### Data
-
-Unless your preprint does not include any output that requires computational resources, you typically need to provide a set of inputs to supplement the generation of the assets in your article. The type and size of the data can vary greatly from one article to another, from a `50KB` excel spreadsheet to a `2GB` neuroimaging dataset of brain images.
-
-The only requirement is that the data must be publicly available to be accessed by NeuroLibre. To specify your data dependencies, you can provide a `binder/data_requirement.json` file in the root of your repository, with the following structure:
-
-```json
-{
-  { "src": "https://drive.google.com/uc?id=1hOohYO0ifFD-sKN_KPPXOgdQpNQaThiJ",
-  "dst": "../data",
-  "projectName": "neurolibre-demo-dataset"
-  }
-}
-```
-
-:::{note}
-The above configuration specifies that the data will be downloaded from Google Drive and placed in and saved in a `data/neurolibre-demo-dataset` at the root of your repository. The `dst` field indicates `../data` as the root of the repository is one directory up from the `binder` directory where the `data_requirement.json` file is located.
-
-Even when the `dst` field is specified differently, NeuroLibre will always mount the data in the `data` folder at the root of your repository. We recommend you to follow the same convention while working locally and to remember to `.gitignore` the `data` folder!
-:::
-
-:::{seealso}
-You can refer to [this documentation](https://docs.neurolibre.org/en/latest/STRUCTURE.html#the-binder-folder-data) for more information about the `binder/data_requirement.json` file and the available options to specify your data dependencies.
-:::
-
-#### How can I get NeuroLibre to cache my data dependencies? 
-
-You can use [this issue template](https://github.com/neurolibre/info/issues/new?assignees=agahkarakuzu&labels=DOWNLOAD&projects=&template=data_cache.md&title=) to request the caching of your data dependencies.
-
-### Code 
-
-NeuroLibre follows the [reproducible runtime environment specification (REES)](https://repo2docker.readthedocs.io/en/latest/specification.html) to define a runtime environment for your preprint. Any programming language supported by Project Jupyter (e.g. python, R, julia, etc.) can be used to create your executable content, where you place necessary [BinderHub configuration files](https://mybinder.readthedocs.io/en/latest/using/config_files.html#config-files) in the `binder` folder.
-
-#### How much computational resources are available and for how long my notebooks can run to generate the outputs?
-
-For each preprint, we guarantee a minimum of 1 CPU core and 4 GB of RAM (8GB maximum), and a maximum of 1 hours of runtime to execute all the notebooks in the `content` folder.
-
-> Do you really want someone to run your code for 1 hour? Probably not.
-
-Even though long-running code cells may be of interest to interactive tutorials, a reader who is interested in reproducing your Figure would be less likely to wait for more than a few minutes for the outputs to be generated. This is why we encourage you to create notebooks that can be run in the "attention span" of a reader.
-
-### Preview your preprint
-
-#### Locally
-
-It is always a good practice to be able to build your MyST article locally before publishing it to NeuroLibre. If you install MyST as described [here](https://mystmd.org/guide/installing), in a virtual environment that has all your code dependencies installed, you can build your myst article:
-
-```bash
-cd path/to/your/repo
-myst build --execute --html
-```
-
-:::{note}
-NeuroLibre also supports Jupyter Book for publishing preprints. You can refer to [this documentation](https://jupyterbook.org/en/stable/intro.html) to find out more about it. However, as of late 2024, MyST is our recommended route for writing preprints.
-:::
-
-#### Roboneuro preview service
-
-If you have a data dependency and have NeuroLibre cached it for you, you can start using the Roboneuro preview service to build your preprint: https://robo.neurolibre.org
-
-#### Technical screening
-
-Once you submit your preprint to NeuroLibre, our team will perform a technical screening to ensure that your preprint can be built successfully. This is to make sure that your preprint is in line with our guidelines and to avoid any issues that may arise during the build process.
-
-You can visit our technical screening repository [neurolibre/neurolibre-reviews](https://github.com/neurolibre/neurolibre-reviews/issues) to see examples of this process.
-
-### After your preprint is published
-
-We archive all the reproducibility assets of your preprint on Zenodo and link those objects to your reproducible preprint that is assigned a DOI and indexed by [Crossref](https://www.crossref.org/) (also by Google Scholar, Researchgate, and other platforms that use Crossref metadata).
-
-Your preprint can be found, cited, and more importantly, reproduced by any interested reader, and that includes you (probably a few years after you published your preprint)!
-
-### Is the idea of wanting to publish a dashboard with your preprint too crazy?
-
-Absolutely not! We encourage you to publish your dashboard alongside your preprint to showcase your results in the best way possible.
-
-:::: {admonition} An interactive dashboard developed with R Shiny
-:class: tip
-:::{iframe} https://shinybrain.db.neurolibre.org
-:width: 100%
-:label: intdashboard
-:align: center
-
-MRShiny Brain interactive dashboard at [https://shinybrain.db.neurolibre.org](https://shinybrain.db.neurolibre.org)
-:::
-::::
-
-:::: {admonition} An award-winning dashboard developed using Plotly Dash
-:class: tip
-:::{iframe} https://rrsg2020.db.neurolibre.org/
-:width: 100%
-:label: intdashboard2
-:align: center
-
-ISMRM RRSG 2020 interactive dashboard at [https://rrsg2020.db.neurolibre.org/](https://rrsg2020.db.neurolibre.org/)
-:::
-::::
-
-These dashboards [](#intdashboard) and [](#intdashboard2) are embedded in their respective NeuroLibre preprints! If you are interested in publishing your own dashboard with NeuroLibre, please open an issue using [this template](https://github.com/neurolibre/info/issues/new?assignees=agahkarakuzu&labels=dashboard&projects=&template=new_dashboard.md&title=%5BNEW+DASHBOARD%5D).
-
-If you have any questions or need further assistance, please reach out to us at `info@neurolibre.org`.
+# Results
