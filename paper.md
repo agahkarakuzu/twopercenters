@@ -37,7 +37,7 @@ First released in 2019, this dataset encompasses the 100,000 most cited authors 
 
 {button}`Elsevier Data Repository<https://elsevier.digitalcommonsdata.com/datasets/btchxktzyw/7>`
 
-Here, we aimed at demonstrating how community-hosted open-source tools can provide robust alternatives to commercial bibliometric platforms Specifically, we developed an interactive dashboard that transforms complex tabular citation data into an accessible platform with advanced search capabilities and multiple analytical perspectives for exploring and comparing research impact metrics across authors, institutions, countries, and scientific fields.
+Here, we aimed at demonstrating how community-hosted open-source tools can provide robust alternatives to commercial bibliometric platforms. Specifically, we developed an interactive dashboard that transforms complex tabular citation data into an accessible platform with advanced search capabilities and multiple analytical perspectives for exploring and comparing research impact metrics across authors, institutions, countries, and scientific fields.
 
 # Methods
 
