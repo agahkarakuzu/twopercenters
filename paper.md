@@ -108,10 +108,6 @@ All source code, configuration files, and deployment scripts were made freely av
 
 # Results
 
-:::{iframe} https://twopercenters.db.neurolibre.org/
-:width: 100%
-You can interact with the dashboard inline. 
-:::
 
 :::{figure} ./content/img/fig1.png
 Caption goes here.
@@ -124,3 +120,11 @@ Caption goes here.
 :::{figure} ./content/img/fig3.png
 Caption goes here.
 :::
+
+# Conclusion
+
+Our dashboard transforms dense citation tables into an interactive platform where researchers can explore impact metrics across disciplines, compare institutions, and track career trajectories—all without ads, paywalls, or algorithmic black boxes. More importantly, everything is open source and reproducible, meaning others can build on this work, customize it for their fields, or deploy their own instances.
+
+The infrastructure we've outlined—Elasticsearch for search, Plotly Dash for visualization, and container-based deployment—represents a practical blueprint for community-driven scholarly tools. It's not revolutionary tech, but it doesn't need to be. Sometimes the most powerful solution is simply taking control of your own data and tools.
+
+As AI reshapes how we discover and consume research, having transparent, community-controlled alternatives becomes even more critical. The next iteration of our effort will extend the dashboard with the latest dataset releases and evolve the platform to serve as a programmatic API, enabling researchers to access citation metrics directly from their scripts and applications. This will further democratize access to bibliometric data and support the development of custom analytical tools built on open infrastructure.
