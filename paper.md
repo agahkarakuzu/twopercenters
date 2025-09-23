@@ -1,3 +1,14 @@
+---
+title: 'Toward a woven  literature: Open-source infrastructure for reproducible publishing'
+tags:
+  - reproducible publishing
+  - interactive articles
+  - reproducible research
+  - open science
+  - open access
+date: 17 September 2025
+---
+
 # Introduction
 
 To date, citations to scholarly articles have served as the primary currency for attributing credibility to their authors. From the academic job market to research funding decisions, citation counts and related metrics remain central indicators shaping outcomes. Google Scholar, a citation-based search engine, has become the dominant gateway to explore articles, author profiles and evaluative bibliography, largely because it is free and user-friendly [](https://doi.org/10.2139/ssrn.2921021).
@@ -15,8 +26,41 @@ First released in 2019, this dataset encompasses the 100,000 most cited authors 
 
 {button}`Elsevier Data Repository<https://elsevier.digitalcommonsdata.com/datasets/btchxktzyw/7>`
 
+Here, we aimed at demonstrating how community-hosted open-source tools can provide robust alternatives to commercial bibliometric platforms Specifically, we developed an interactive dashboard that transforms complex tabular citation data into an accessible platform with advanced search capabilities and multiple analytical perspectives for exploring and comparing research impact metrics across authors, institutions, countries, and scientific fields.
 
 # Methods
+
+:::{mermaid}
+graph TD
+    A[Raw Citation Data<br/>Science-wide Author Database] --> B[Data Preprocessing Pipeline]
+    B --> C[Data Compression & Encoding]
+    C --> D[Elasticsearch Indexing]
+
+    D --> E[Individual Researcher Index<br/>Author profiles, metrics, affiliations]
+    D --> F[Aggregation Index<br/>Country, field, institutional summaries]
+
+    E --> G[Elasticsearch Cluster<br/>Distributed Search & Analytics]
+    F --> G
+
+    G --> H[Plotly Dash Web Application]
+
+    H --> I[Interactive World Map<br/>Global citation distributions]
+    H --> J[Author Search Interface<br/>Autocomplete capabilities]
+    H --> K[Comparison Tools<br/>Author vs Author/Group]
+    H --> L[Temporal Analysis<br/>Metric evolution over time]
+
+    M[NeuroLibre Dokku Platform] --> N[Elasticsearch Deployment<br/>Security & access controls]
+    M --> O[Dashboard Deployment<br/>Scalable hosting]
+
+    N --> G
+    O --> H
+
+    style A fill:#e1f5fe
+    style G fill:#fff3e0
+    style H fill:#f3e5f5
+    style M fill:#e8f5e8
+:::
+
 
 ## Data Processing and Indexing Pipeline
 
@@ -60,6 +104,23 @@ Both the Elasticsearch instance and dashboard application were deployed on Neuro
 
 Environment-specific configurations enabled deployment flexibility, with support for both local development and production environments. The implementation included proper error handling, logging, and monitoring capabilities to ensure reliable operation in production settings.
 
-All source code, configuration files, and deployment scripts were made freely available through the project repository at https://github.com/Notebook-Factory/twopercenters/tree/main, enabling reproducibility and community contributions to the platform.
+All source code, configuration files, and deployment scripts were made freely available through the project repository at https://github.com/Notebook-Factory/twopercenters, enabling reproducibility and community contributions to the platform.
 
 # Results
+
+:::{iframe} https://twopercenters.db.neurolibre.org/
+:width: 100%
+You can interact with the dashboard inline. 
+:::
+
+:::{figure} ./content/img/fig1.png
+Caption goes here.
+:::
+
+:::{figure} ./content/img/fig2.png
+Caption goes here.
+:::
+
+:::{figure} ./content/img/fig3.png
+Caption goes here.
+:::

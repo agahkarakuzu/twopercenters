@@ -3,11 +3,6 @@ version: 1
 project:
   title: 'A living bibliometric dashboard: Tracking Top 2% Researchers with ElasticSearch and Dash'
   subtitle: Based on standardized citation indicators across science-wide author databases
-  thebe:
-    binder:
-      url: https://terrarium.evidencepub.io
-      repo: neurolibre/mystical-article
-      ref: HEAD # Production will override this.
   authors:
     - name: Nadia Blostein
       orcid: 0000-0002-1864-1899

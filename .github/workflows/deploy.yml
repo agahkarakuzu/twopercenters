@@ -29,17 +29,6 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v3
       # Set up Python
-      - name: Setup Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-          
-      # Install Python dependencies
-      - name: Install Python dependencies
-        run: |
-          python -m venv venv
-          source venv/bin/activate
-          pip install -r binder/requirements.txt
       - uses: actions/setup-node@v4
         with:
           node-version: 18.x
