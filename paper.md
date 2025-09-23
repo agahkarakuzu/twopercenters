@@ -9,6 +9,17 @@ tags:
 date: 17 September 2025
 ---
 
++++ { "part": "abstract" }
+We built an interactive dashboard to explore citation data from the standardized citation indicators dataset covering 100,000 top-cited
+researchers across 22 disciplines. The system uses Elasticsearch for search
+and Plotly Dash for visualization, allowing users to compare researchers,
+institutions, countries, and fields through various bibliometric metrics.
+Users can toggle between career-long and single-year data, exclude
+self-citations, and examine temporal trends. The platform runs on open-source infrastructure and provides an alternative interface for bibliometric analysis. All code and deployment configurations are publicly available, enabling others to replicate or modify the system for their own datasets.
+
++++
+
+
 # Introduction
 
 To date, citations to scholarly articles have served as the primary currency for attributing credibility to their authors. From the academic job market to research funding decisions, citation counts and related metrics remain central indicators shaping outcomes. Google Scholar, a citation-based search engine, has become the dominant gateway to explore articles, author profiles and evaluative bibliography, largely because it is free and user-friendly [](https://doi.org/10.2139/ssrn.2921021).
@@ -29,6 +40,10 @@ First released in 2019, this dataset encompasses the 100,000 most cited authors 
 Here, we aimed at demonstrating how community-hosted open-source tools can provide robust alternatives to commercial bibliometric platforms Specifically, we developed an interactive dashboard that transforms complex tabular citation data into an accessible platform with advanced search capabilities and multiple analytical perspectives for exploring and comparing research impact metrics across authors, institutions, countries, and scientific fields.
 
 # Methods
+
+We designed and implemented a data processing and visualization pipeline to transform the standardized citation indicators dataset into an interactive web-based dashboard. Our approach prioritized open-source tools, reproducible infrastructure, and scalable deployment to demonstrate how community-hosted platforms can effectively serve large-scale bibliometric data. 
+
+The diagram below illustrates the complete system architecture, from raw data ingestion through to user-facing analytical interfaces.
 
 :::{mermaid}
 graph TD
@@ -108,18 +123,36 @@ All source code, configuration files, and deployment scripts were made freely av
 
 # Results
 
-
 :::{figure} ./content/img/fig1.png
-Caption goes here.
+:label: fig1
+Global distribution of research excellence metrics (snapshot displays median h-index for career-long data from 2021) among top 2% scientists by country, as visualized on a world map. The right panel shows the ranking of institutions from an examplary selection (Turkey).
 :::
+
+The default state of [Figure 1](#fig1) displays median H-index values across countries, derived from career-span academic performance data of the most cited researchers worldwide in 2021. Color scale represents median H-index from 0 (purple) to 70+ (yellow), with darker regions indicating lower citation impact and brighter regions showing higher research productivity. This page enables exploration of all the metrics that go into the calculation of the c-score (slider), as well as the selection of different statistics (dropdown). This panel also allows exploration of country-specific institutional rankings when clicked on the respective country, determined by the affiliation of the researchers who made the cut.
+
+---
+::::{seealso} Click here to interact with the dashboard inline
+:class: dropdown
+:::{iframe} https://twopercenters.db.neurolibre.org/
+:width: 100%
+:::
+::::
+
+{button}`Click here to open the dashboard in a new tab<https://twopercenters.db.neurolibre.org/>`
+
+---
 
 :::{figure} ./content/img/fig2.png
-Caption goes here.
+Individual researcher performance panel showing example bibliometric analysis for John P.A. Ioannidis. (a) Summary metrics panel displaying composite score (5.19) and key bibliometric indicators including total citations (88.6K), H-index (132), and HM-index (66.9), with corresponding percentile rankings and citation distributions across single-authored and collaborative works. (b) Temporal trends comparing career-long versus single-year performance trajectories from 2017-2021, showing rank progression, composite scores, total citations, and H-index evolution for both assessment periods. Both panels enable the exclusion of self-citations from the calculation of these metrics. 
 :::
 
+[Figure 2](#fig2) presents a multifaceted research impact assessment through both aggregate career metrics and year-specific performance indicators. A key feature includes the option to exclude self-citations, allowing users to examine how researcher rankings change when self-referential patterns are removed from the analysis. The temporal comparison between career-long and single-year data reveals how annual fluctuations in citation patterns contrast with the stability of cumulative metrics. This dual-perspective approach enables more objective evaluation of researcher trajectories, particularly valuable for understanding sustained versus ephemeral impact in scholarly productivity assessments.
+
 :::{figure} ./content/img/fig3.png
-Caption goes here.
+Comparative bibliometric analysis dashboard featuring multi-researcher and group-level performance metrics. (a) Author-vs-author comparison between researchers showing composite scores and citation distributions, (b) Author-vs-group analysis displaying individual performance against field averages (41,350 authors in Clinical Medicine), (c) Group-vs-group comparison between research fields and countries with statistical distributions, and (d) Supporting infrastructure logos and QR code to https://twopercenters.db.neurolibre.org.
 :::
+
+[Figure 3](#fig3) demonstrates comparison options across multiple organizational levels, from individual researchers to entire research fields and national systems. The panels allow users to toggle between career-span and single-year metrics while maintaining the option to exclude self-citations for more objective assessments. Statistical visualizations include box plots and distribution analyses that reveal performance variability within groups, providing context for individual achievements relative to peer cohorts. This multi-scale approach supports evidence-based evaluation of research impact across institutional, national, and disciplinary boundaries
 
 # Conclusion
 
@@ -128,3 +161,11 @@ Our dashboard transforms dense citation tables into an interactive platform wher
 The infrastructure we've outlined—Elasticsearch for search, Plotly Dash for visualization, and container-based deployment—represents a practical blueprint for community-driven scholarly tools. It's not revolutionary tech, but it doesn't need to be. Sometimes the most powerful solution is simply taking control of your own data and tools.
 
 As AI reshapes how we discover and consume research, having transparent, community-controlled alternatives becomes even more critical. The next iteration of our effort will extend the dashboard with the latest dataset releases and evolve the platform to serve as a programmatic API, enabling researchers to access citation metrics directly from their scripts and applications. This will further democratize access to bibliometric data and support the development of custom analytical tools built on open infrastructure.
+
++++ { "part": "acknowledgement" }
+Hosting was provided by NeuroLibre, a next-generation publication platform funded by the Canadian Open Neuroscience Platform, Brain Canada, Quebec Bioimaging Network, and Institut TransMedTech at Polytechnique Montréal.
++++
+
++++ { "part": "data_availability" }
+The original dataset has been made available by [](https://doi.org/10.1371/journal.pbio.3000384) at https://elsevier.digitalcommonsdata.com/datasets/btchxktzyw/7. 
++++
