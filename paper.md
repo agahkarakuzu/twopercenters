@@ -6,7 +6,7 @@ tags:
   - reproducible research
   - open science
   - open access
-date: 17 September 2025
+date: 2025-09-17
 ---
 
 +++ { "part": "abstract" }
@@ -45,8 +45,9 @@ We designed and implemented a data processing and visualization pipeline to tran
 
 The diagram below illustrates the complete system architecture, from raw data ingestion through to user-facing analytical interfaces.
 
-:::{mermaid}
+::::{figure}
 :label: chart
+:::{mermaid}
 graph TD
     A[Raw Citation Data<br/>Science-wide Author Database] --> B[Data Preprocessing Pipeline]
     B --> C[Data Compression & Encoding]
@@ -76,6 +77,8 @@ graph TD
     style H fill:#f3e5f5
     style M fill:#e8f5e8
 :::
+Schematic overview of the interactive data application system architecture.
+::::
 
 
 ## Data Processing and Indexing Pipeline
@@ -129,7 +132,7 @@ All source code, configuration files, and deployment scripts were made freely av
 Global distribution of research excellence metrics (snapshot displays median h-index for career-long data from 2021) among top 2% scientists by country, as visualized on a world map. The right panel shows the ranking of institutions from an examplary selection (Turkey).
 :::
 
-The default state of [Figure 1](#fig1) displays median H-index values across countries, derived from career-span academic performance data of the most cited researchers worldwide in 2021. Color scale represents median H-index from 0 (purple) to 70+ (yellow), with darker regions indicating lower citation impact and brighter regions showing higher research productivity. This page enables exploration of all the metrics that go into the calculation of the c-score (slider), as well as the selection of different statistics (dropdown). This panel also allows exploration of country-specific institutional rankings when clicked on the respective country, determined by the affiliation of the researchers who made the cut.
+The default state of [](#fig1) displays median H-index values across countries, derived from career-span academic performance data of the most cited researchers worldwide in 2021. Color scale represents median H-index from 0 (purple) to 70+ (yellow), with darker regions indicating lower citation impact and brighter regions showing higher research productivity. This page enables exploration of all the metrics that go into the calculation of the c-score (slider), as well as the selection of different statistics (dropdown). This panel also allows exploration of country-specific institutional rankings when clicked on the respective country, determined by the affiliation of the researchers who made the cut.
 
 ---
 ::::{seealso} Click here to interact with the dashboard inline
@@ -148,20 +151,20 @@ The default state of [Figure 1](#fig1) displays median H-index values across cou
 Individual researcher performance panel showing example bibliometric analysis for John P.A. Ioannidis. (a) Summary metrics panel displaying composite score (5.19) and key bibliometric indicators including total citations (88.6K), H-index (132), and HM-index (66.9), with corresponding percentile rankings and citation distributions across single-authored and collaborative works. (b) Temporal trends comparing career-long versus single-year performance trajectories from 2017-2021, showing rank progression, composite scores, total citations, and H-index evolution for both assessment periods. Both panels enable the exclusion of self-citations from the calculation of these metrics. 
 :::
 
-[Figure 2](#fig2) presents a multifaceted research impact assessment through both aggregate career metrics and year-specific performance indicators. A key feature includes the option to exclude self-citations, allowing users to examine how researcher rankings change when self-referential patterns are removed from the analysis. The temporal comparison between career-long and single-year data reveals how annual fluctuations in citation patterns contrast with the stability of cumulative metrics. This dual-perspective approach enables more objective evaluation of researcher trajectories, particularly valuable for understanding sustained versus ephemeral impact in scholarly productivity assessments.
+[](#fig2) presents a multifaceted research impact assessment through both aggregate career metrics and year-specific performance indicators. A key feature includes the option to exclude self-citations, allowing users to examine how researcher rankings change when self-referential patterns are removed from the analysis. The temporal comparison between career-long and single-year data reveals how annual fluctuations in citation patterns contrast with the stability of cumulative metrics. This dual-perspective approach enables more objective evaluation of researcher trajectories, particularly valuable for understanding sustained versus ephemeral impact in scholarly productivity assessments.
 
 :::{figure} ./content/img/fig3.png
 :label: fig3
 Comparative bibliometric analysis dashboard featuring multi-researcher and group-level performance metrics. (a) Author-vs-author comparison between researchers showing composite scores and citation distributions, (b) Author-vs-group analysis displaying individual performance against field averages (41,350 authors in Clinical Medicine), (c) Group-vs-group comparison between research fields and countries with statistical distributions, and (d) Supporting infrastructure logos and QR code to https://twopercenters.db.neurolibre.org.
 :::
 
-[Figure 3](#fig3) demonstrates comparison options across multiple organizational levels, from individual researchers to entire research fields and national systems. The panels allow users to toggle between career-span and single-year metrics while maintaining the option to exclude self-citations for more objective assessments. Statistical visualizations include box plots and distribution analyses that reveal performance variability within groups, providing context for individual achievements relative to peer cohorts. This multi-scale approach supports evidence-based evaluation of research impact across institutional, national, and disciplinary boundaries
+[](#fig3) demonstrates comparison options across multiple organizational levels, from individual researchers to entire research fields and national systems. The panels allow users to toggle between career-span and single-year metrics while maintaining the option to exclude self-citations for more objective assessments. Statistical visualizations include box plots and distribution analyses that reveal performance variability within groups, providing context for individual achievements relative to peer cohorts. This multi-scale approach supports evidence-based evaluation of research impact across institutional, national, and disciplinary boundaries
 
 # Conclusion
 
 The dashboard presented herein converts complex citation datasets into an interactive platform that enables researchers to systematically examine impact metrics across disciplines, perform institutional comparisons, and monitor career trajectories. The platform is entirely free of advertisements, paywalls, and opaque algorithms. Furthermore, all components are open source and reproducible, thereby facilitating extension, adaptation to specific research domains, and independent deployment by the broader community.
 
-The infrastructure described herein ([Diagram](#chart)) serves as a pragmatic and effective model for the development of community-driven scholarly tools. While it does not introduce fundamentally novel technologies, its strength lies in empowering users to maintain autonomy over their data and analytical resources. This approach underscores the value of transparent, self-managed solutions in advancing open and reproducible research practices.
+The infrastructure described herein (see [](#chart)) serves as a pragmatic and effective model for the development of community-driven scholarly tools. While it does not introduce fundamentally novel technologies, its strength lies in empowering users to maintain autonomy over their data and analytical resources. This approach underscores the value of transparent, self-managed solutions in advancing open and reproducible research practices.
 
 In light of the transformative impact of AI on research discovery and consumption, the availability of transparent, community-governed alternatives is increasingly essential. Future developments will focus on augmenting the dashboard with the most recent dataset releases and expanding the platform’s functionality to include a programmatic API. This enhancement will facilitate direct access to citation metrics from researchers’ scripts and applications, thereby further democratizing bibliometric data and fostering the creation of custom analytical tools grounded in open infrastructure.
 
