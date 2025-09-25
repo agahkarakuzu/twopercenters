@@ -143,12 +143,14 @@ The default state of [Figure 1](#fig1) displays median H-index values across cou
 ---
 
 :::{figure} ./content/img/fig2.png
+:label: fig2
 Individual researcher performance panel showing example bibliometric analysis for John P.A. Ioannidis. (a) Summary metrics panel displaying composite score (5.19) and key bibliometric indicators including total citations (88.6K), H-index (132), and HM-index (66.9), with corresponding percentile rankings and citation distributions across single-authored and collaborative works. (b) Temporal trends comparing career-long versus single-year performance trajectories from 2017-2021, showing rank progression, composite scores, total citations, and H-index evolution for both assessment periods. Both panels enable the exclusion of self-citations from the calculation of these metrics. 
 :::
 
 [Figure 2](#fig2) presents a multifaceted research impact assessment through both aggregate career metrics and year-specific performance indicators. A key feature includes the option to exclude self-citations, allowing users to examine how researcher rankings change when self-referential patterns are removed from the analysis. The temporal comparison between career-long and single-year data reveals how annual fluctuations in citation patterns contrast with the stability of cumulative metrics. This dual-perspective approach enables more objective evaluation of researcher trajectories, particularly valuable for understanding sustained versus ephemeral impact in scholarly productivity assessments.
 
 :::{figure} ./content/img/fig3.png
+:label: fig3
 Comparative bibliometric analysis dashboard featuring multi-researcher and group-level performance metrics. (a) Author-vs-author comparison between researchers showing composite scores and citation distributions, (b) Author-vs-group analysis displaying individual performance against field averages (41,350 authors in Clinical Medicine), (c) Group-vs-group comparison between research fields and countries with statistical distributions, and (d) Supporting infrastructure logos and QR code to https://twopercenters.db.neurolibre.org.
 :::
 

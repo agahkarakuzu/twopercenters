@@ -7,7 +7,6 @@ project:
     - name: Nadia Blostein
       orcid: 0000-0002-1864-1899
       affiliations: ucc
-      url: https://nadia.dev
       roles:
         - Software
         - Writing – original draft
