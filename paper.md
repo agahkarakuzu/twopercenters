@@ -1,5 +1,4 @@
 ---
-title: 'Toward a woven  literature: Open-source infrastructure for reproducible publishing'
 tags:
   - reproducible publishing
   - interactive articles
