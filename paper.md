@@ -4,7 +4,6 @@ tags:
   - reproducible publishing
   - interactive articles
   - reproducible research
-  - open science
   - open access
 date: 2025-09-17
 ---
