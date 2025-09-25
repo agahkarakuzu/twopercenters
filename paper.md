@@ -46,6 +46,7 @@ We designed and implemented a data processing and visualization pipeline to tran
 The diagram below illustrates the complete system architecture, from raw data ingestion through to user-facing analytical interfaces.
 
 :::{mermaid}
+:label: chart
 graph TD
     A[Raw Citation Data<br/>Science-wide Author Database] --> B[Data Preprocessing Pipeline]
     B --> C[Data Compression & Encoding]
@@ -158,11 +159,11 @@ Comparative bibliometric analysis dashboard featuring multi-researcher and group
 
 # Conclusion
 
-Our dashboard transforms dense citation tables into an interactive platform where researchers can explore impact metrics across disciplines, compare institutions, and track career trajectories—all without ads, paywalls, or algorithmic black boxes. More importantly, everything is open source and reproducible, meaning others can build on this work, customize it for their fields, or deploy their own instances.
+The dashboard presented herein converts complex citation datasets into an interactive platform that enables researchers to systematically examine impact metrics across disciplines, perform institutional comparisons, and monitor career trajectories. The platform is entirely free of advertisements, paywalls, and opaque algorithms. Furthermore, all components are open source and reproducible, thereby facilitating extension, adaptation to specific research domains, and independent deployment by the broader community.
 
-The infrastructure we've outlined—Elasticsearch for search, Plotly Dash for visualization, and container-based deployment—represents a practical blueprint for community-driven scholarly tools. It's not revolutionary tech, but it doesn't need to be. Sometimes the most powerful solution is simply taking control of your own data and tools.
+The infrastructure described herein ([Diagram](#chart)) serves as a pragmatic and effective model for the development of community-driven scholarly tools. While it does not introduce fundamentally novel technologies, its strength lies in empowering users to maintain autonomy over their data and analytical resources. This approach underscores the value of transparent, self-managed solutions in advancing open and reproducible research practices.
 
-As AI reshapes how we discover and consume research, having transparent, community-controlled alternatives becomes even more critical. The next iteration of our effort will extend the dashboard with the latest dataset releases and evolve the platform to serve as a programmatic API, enabling researchers to access citation metrics directly from their scripts and applications. This will further democratize access to bibliometric data and support the development of custom analytical tools built on open infrastructure.
+In light of the transformative impact of AI on research discovery and consumption, the availability of transparent, community-governed alternatives is increasingly essential. Future developments will focus on augmenting the dashboard with the most recent dataset releases and expanding the platform’s functionality to include a programmatic API. This enhancement will facilitate direct access to citation metrics from researchers’ scripts and applications, thereby further democratizing bibliometric data and fostering the creation of custom analytical tools grounded in open infrastructure.
 
 +++ { "part": "acknowledgement" }
 Hosting was provided by NeuroLibre, a next-generation publication platform funded by the Canadian Open Neuroscience Platform, Brain Canada, Quebec Bioimaging Network, and Institut TransMedTech at Polytechnique Montréal.

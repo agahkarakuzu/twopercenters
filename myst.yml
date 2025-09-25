@@ -90,6 +90,7 @@ project:
     code: MIT
   abbreviations:
     MyST: Markedly Structured Markdown
+    AI: Artificial Intelligence
   bibliography:
     - paper.bib
   resources:
